@@ -14,22 +14,17 @@ slicer example_func2highres highres -s 2 -x 0.35 sla.png -x 0.45 slb.png -x 0.55
 
 ## AFNI
 
-The [@chauffeur_afni](https://afni.nimh.nih.gov/pub/dist/doc/program_help/@chauffeur_afni.html) program can create edge maps using [3dedge3](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/programs/3dedge3_sphx.html). While the code appears to be a derivation of the Sobel function, in practice it the default settings do a nice job outlining meaningful edges.
+The [@chauffeur_afni](https://afni.nimh.nih.gov/pub/dist/doc/program_help/@chauffeur_afni.html) and [@djunct_edgy_align_check](https://afni.nimh.nih.gov/pub/dist/doc/program_help/@djunct_edgy_align_check.html) scripts can create edge maps using [3dedge3](https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/programs/3dedge3_sphx.html). While the code appears to be a derivation of the Sobel function, in practice it the default settings do a nice job outlining meaningful edges.
 ```
-@chauffeur_afni                            \
-        -ulay  highres.nii.gz              \
-        -olay  example_func2highres.nii.gz \
-        -cbar gray_scale \
-        -edgy_ulay                      \
-        -opacity 7                        \
-        -prefix   afni_coreg                \
-        -montx 5 -monty 1                 \
-        -set_xhairs OFF                   \
-        -label_mode 1 -label_size 3       \
-        -do_clean     
-```
+@djunct_edgy_align_check                            \
+    -ulay              example_func2highres.nii.gz  \
+    -olay              highres.nii.gz               \
+    -box_focus_slices  highres.nii.gz               \
+    -prefix            img_AEAC
 
-![AFNI](afni_coreg.sag.png)
+![AFNI](img_AEAC.axi.jpg)
+![AFNI](img_AEAC.cor.jpg)
+![AFNI](img_AEAC.sag.jpg)
 
 ## MRIcroGL
 
