@@ -46,4 +46,4 @@ gl.sobel(1)
 gl.mosaic('H 0.2 S 0.35 0.45 0.55 0.65 C  0.35 0.45 0.55 0.65 A 0.35 0.45 0.55 0.65 ')
 ```
 
-![MRIcroGL](MRIcroGL.png)
+![MRIcroGL](GL.png)
