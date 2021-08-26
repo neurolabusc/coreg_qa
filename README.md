@@ -21,6 +21,7 @@ The [@chauffeur_afni](https://afni.nimh.nih.gov/pub/dist/doc/program_help/@chauf
     -olay              highres.nii.gz               \
     -box_focus_slices  highres.nii.gz               \
     -prefix            img_AEAC
+```
 
 ![AFNI](img_AEAC.axi.jpg)
 ![AFNI](img_AEAC.cor.jpg)
