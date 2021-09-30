@@ -20,6 +20,7 @@ The [@chauffeur_afni](https://afni.nimh.nih.gov/pub/dist/doc/program_help/@chauf
     -ulay              example_func2highres.nii.gz  \
     -olay              highres.nii.gz               \
     -box_focus_slices  highres.nii.gz               \
+    -use_olay_grid     NN                           \
     -prefix            img_AEAC
 ```
 
@@ -29,17 +30,26 @@ The [@chauffeur_afni](https://afni.nimh.nih.gov/pub/dist/doc/program_help/@chauf
 
 ## MRIcroGL
 
-Recent versions (since v1.2.20211111) can create edge maps using the `Find Edges` command from the `Options` button or with the `sobel()` scripting function. This applies a basic [Sobel filter](https://en.wikipedia.org/wiki/Sobel_operator). MRIcroGL can also be compiled to apply the modified Sobel suggested by [Asjad and Deriche](https://www.researchgate.net/publication/283280465_A_new_approach_for_salt_dome_detection_using_a_3D_multidirectional_edge_detector
-), though this appears to have little influence in practice.
+Recent versions (since v1.2.20210909) can create edge maps using the `Find Edges` command from the `Options` button or with the `dog()` scripting function. This applies a basic [Difference of Gaussian](https://en.wikipedia.org/wiki/Difference_of_Gaussians) filter. The filter Gaussians with a FWHM of 2.5mm and 4mm (matching the [typical thickness](https://www.pnas.org/content/97/20/11050) of the human cortex, with [K~1.6](https://en.wikipedia.org/wiki/Difference_of_Gaussians) approximating the [Laplacian of Gaussian](https://en.wikipedia.org/wiki/Blob_detection#The_Laplacian_of_Gaussian).
+
 ```
 import gl
 gl.resetdefaults()
 gl.loadimage('highres.nii.gz')
 gl.overlayload('example_func2highres.nii.gz')
+gl.dog(1)
+gl.opacity(1,0)
 gl.colorbarposition(0)
-gl.opacity(1,1)
-gl.sobel(1)
-gl.mosaic('H 0.2 S 0.35 0.45 0.55 0.65 C  0.35 0.45 0.55 0.65 A 0.35 0.45 0.55 0.65 ')
+gl.mosaic("A 0.35 0.45 0.55 0.65; S 0.35 0.45 0.55 0.65; C  0.35 0.45 0.55 0.65")
 ```
 
 ![MRIcroGL](GL.png)
+
+
+## niimath
+
+[niimath](https://github.com/rordenlab/niimath) can create an edge map using the same method as MRIcroGL:
+
+```
+niimath example_func2highres -clamp 0 -uclamp 100 -dog1 2 4 funcEdge
+```
